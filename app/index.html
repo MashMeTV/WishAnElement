@@ -53,6 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
+
 </head>
 
 <body unresolved class="fullbleed layout vertical">
@@ -119,11 +120,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
               <paper-material elevation="4">
                 <p class="paper-font-body2">This is another card.</p>
-                <paper-checkbox checked> Maria</paper-checkbox>
-                <paper-checkbox> Gloria</paper-checkbox>
+                <paper-checkbox > Maria</paper-checkbox>
+                <paper-checkbox checked> Gloria</paper-checkbox>
                 <paper-checkbox> Victor</paper-checkbox>
                 <paper-checkbox> Tifa</paper-checkbox>
-
+                <br>
+                <br>
+                <a href="GridEx.html"><paper-button raised>SOY UN BOTÓN!</paper-button></a>
+                <paper-item rol="menuitemcheckbox">
+                  <p>bu</p>
+                  <paper-item>Yo solo escribo hits</paper-item>
+                  <paper-item>Por eso MondoSonoro nunca nos pondrá en portada</paper-item>
+                  <paper-item><a href="../bower_components/paper-input/demo/index.html">HEY :D</a></paper-item>
+                  <iron-icon icon="warning"></iron-icon>
+                </paper-item>
+                
               </paper-material>
 
               <paper-material elevation="1" class="paper-font-body2">
@@ -161,6 +172,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 User:<span>{{params.name}}</span>
                 </h2>
                 <div>This is <span>{{params.name}}</span>'s section</div>
+                <p>Ver de dónde vienen los parámetros</p>
               </paper-material>
             </section>
 
@@ -168,7 +180,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">Contact</h2>
                 <p>This is the contact section</p>
+                <p>Mirar por qué si haces scroll en una sección te lo mantiene cuando cambias a otra</p>
+                <p>No entiendo por qué se colocan de esa forma los paréntesis en la parte de JS de los elementos</p>
               </paper-material>
+              <paper-input label="cheer!" error-message="Invalid input!" type="text"></paper-input>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <marias-element></marias-element>
+              <br>
+              <br>
+              <br>
+              <paper-dialog>
+                <h2>Header</h2>
+                <paper-dialog-scrollable>
+                  Lorem ipsum...
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss>Cancel</paper-button>
+                  <paper-button dialog-confirm>Accept</paper-button>
+                </div>
+              </paper-dialog>
             </section>
 
           </iron-pages>

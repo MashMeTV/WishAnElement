@@ -1,0 +1,38 @@
+<dom-module id="marias-element">
+  <template>
+    <style>
+      #number-display {
+        height: 80px;
+        width: 80px;
+        border-radius: 60px;
+        background-color: #FDC22E;
+        color: #FFE907;
+      }
+      #number-display p {
+          color: white;
+      }
+
+    </style>
+
+    <div>
+      <paper-input label="Enter a number" maxlength="5" type="text" char-counter auto-validate value="{{::inputValue}}"></paper-input>
+      <br>
+      <paper-button id="number-display"><p>{{::inputValue}}</p></paper-button>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  (function (){
+    Polymer({
+      is: "marias-element"
+    });
+  })();
+</script>
+
+
+<!-- Hacer que cada vez que cambie el valor de {{inputValue}} el botón se comporte como cuando lo pulsas-->
+
+<!-- Meter con JS que el radio del círculo sea (({{inputValue}}*10)+30)px -->
+
+<!-- /* No sé en qué parte de esto se metería una var de JS para hacer de contador del inputValue, me la juego a fuera de Polymer, pero no sé si en otra function */ -->
