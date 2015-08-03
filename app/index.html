@@ -84,6 +84,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <iron-icon icon="mail"></iron-icon>
                 <span>Contact</span>
               </a>
+
+              <a data-route="quiz" href="/quiz">
+                <iron-icon icon="info"></iron-icon>
+                <span>Quiz</span>
+              </a>
           </paper-menu>
       </div>
       <paper-header-panel main mode="waterfall-tall">
@@ -128,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <br>
                 <a href="GridEx.html"><paper-button raised>SOY UN BOTÓN!</paper-button></a>
                 <paper-item rol="menuitemcheckbox">
-                  <p>bu</p>
+                  <p id="hey">bu</p>
                   <paper-item>Yo solo escribo hits</paper-item>
                   <paper-item>Por eso MondoSonoro nunca nos pondrá en portada</paper-item>
                   <paper-item><a href="../bower_components/paper-input/demo/index.html">HEY :D</a></paper-item>
@@ -206,6 +211,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-dialog>
             </section>
 
+            <section data-route="quiz">
+              <start-quiz value="animals"></start-quiz>
+            </section>
+
           </iron-pages>
         </div>
       </paper-header-panel>
@@ -228,7 +237,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
+  <script src="scripts/app.js">
+
+  </script>
   <!-- endbuild-->
 </body>
 

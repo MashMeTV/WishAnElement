@@ -1,0 +1,62 @@
+<dom-module id="start-quiz">
+  <template>
+  <style>
+    paper-material {
+      display: flex;
+      flex-direction: column;
+    }
+    #arrow {
+      height: 25px;
+      width: 25px;
+    }
+    
+  </style>
+
+  <select value="{{quiz::input}}" id="mySelect">
+    <option salected value="animals">Animals</option>
+    <option value="plants">Plants</option>
+    <option value="rocks">Rocks</option>
+  </select>
+  <paper-material elevation="2">
+    <p id="main">Let's check out your knowledge about <span>{{quiz}}</span>!</p> 
+    <p>Are you ready?</p>
+    <paper-icon-button icon="arrow-forward" id="arrow"></paper-icon-button>
+    </paper-material>
+    <p id="empty"></p>
+  </template> 
+
+  <script>
+    (function(){
+      Polymer ({
+        is: "start-quiz",
+
+        properties: {
+          quiz: {
+            type: String,
+            value: "animals",
+            observer: "quizChanged"
+          }
+        },
+
+        quizChanged: function(newValue, oldValue) {
+          console.log("oldValue = " + oldValue);
+          console.log("newValue = " + newValue);
+          return newValue;
+        },
+
+        listeners: {
+          "arrow.tap": "_tapHandler"
+        },
+
+        _tapHandler: function(startQuiz){ 
+          console.log("im still alive");
+          var newQuest = document.createElement("paper-material");
+          var content = document.createTextNode("This is a new quest about ");
+          newQuest.appendChild(content);
+          var element = document.getElementById("empty");
+          element.appendChild(newQuest);
+        }
+      });
+    })();
+  </script>
+</dom-module>

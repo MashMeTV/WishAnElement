@@ -10,10 +10,30 @@
   <link rel="import" href="../elements/elements.html">
 
   <style>
+    div {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+    }
+
     paper-toolbar {
+      margin: 15px;
+      flex: 1 ;
       background: green;
     }
 
+    paper-toolbar {
+      background: #F6303F;
+    }
+    paper-menu {
+      flex: 1;
+      flex-direction: column;
+    }
+    paper-item {
+      flex: 1;
+      background: #FFE907;
+      margin: 5px;
+    }
   </style>  
 </head>
 
@@ -23,6 +43,14 @@
     <div class="title">Title</div>
   </paper-icon-button>
 </paper-toolbar>
+<div>
+  <paper-menu>
+    <paper-item>Inbox</paper-item>
+    <paper-item>Sent mail</paper-item>
+    <paper-item>Drafts</paper-item>
+    <paper-item>Starred</paper-item>
+  </paper-menu>
+</div>
 </body>
 </head>
 </html>
