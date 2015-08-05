@@ -1,26 +1,47 @@
 <dom-module id="start-quiz">
   <template>
   <style>
-    paper-material {
+    .quizMainBox {
+     display: -webkit-flex;
       display: flex;
       flex-direction: column;
+      padding: 20px;
+      height: 120px;
+    }/*
+    .quizMainBox div {
+      margin-top: 15px;
+    }*/
+
+    .flexRow {
+      display: flex;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      flex: 1; 
     }
+
     #arrow {
       height: 25px;
       width: 25px;
     }
-    
-  </style>
+    #edit {
+      --paper-slider-active-color: #F6303F;
+    }
 
-  <select value="{{quiz::input}}" id="mySelect">
-    <option salected value="animals">Animals</option>
-    <option value="plants">Plants</option>
-    <option value="rocks">Rocks</option>
-  </select>
-  <paper-material elevation="2">
-    <p id="main">Let's check out your knowledge about <span>{{quiz}}</span>!</p> 
-    <p>Are you ready?</p>
-    <paper-icon-button icon="arrow-forward" id="arrow"></paper-icon-button>
+  </style> 
+  <paper-material elevation="2" class="quizMainBox">
+    <h3 id="main">Let's check out your knowledge about <span>{{quiz}}</span>!!</h3> 
+    <div class="flexRow">
+      <span>Are you ready? Choose the number of questions!</span>
+       <select value="{{quiz::input}}" id="mySelect">
+        <option salected value="animals">Animals</option>
+        <option value="plants">Plants</option>
+        <option value="rocks">Rocks</option>
+      </select>
+      <paper-slider id="edit" pin snaps value="10" min="1" max="10"></paper-slider>
+      <paper-icon-button icon="arrow-forward" id="arrow"></paper-icon-button>
+    </div>
     </paper-material>
     <p id="empty"></p>
   </template> 
@@ -48,13 +69,16 @@
           "arrow.tap": "_tapHandler"
         },
 
-        _tapHandler: function(startQuiz){ 
+        _tapHandler: function(){ 
           console.log("im still alive");
-          var newQuest = document.createElement("paper-material");
-          var content = document.createTextNode("This is a new quest about ");
-          newQuest.appendChild(content);
-          var element = document.getElementById("empty");
-          element.appendChild(newQuest);
+          var numOfQuest = document.getElementById("edit").value;
+          for(var i=0; i<numOfQuest; i++){
+            var newQuest = document.createElement("paper-material");
+            var content = document.createTextNode("This is a new quest about " + this.quiz);
+            newQuest.appendChild(content);
+            var element = document.getElementById("empty");
+            element.appendChild(newQuest);  
+          }
         }
       });
     })();

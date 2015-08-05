@@ -15,7 +15,7 @@
     </style>
 
     <div>
-      <paper-input id="number_input" label="Enter a number" maxlength="5" type="text" char-counter auto-validate value="{{inputNumber}}"></paper-input>
+      <paper-input id="number_input" label="Enter a number" maxValue="99" type="number" char-counter auto-validate value="{{inputNumber}}"></paper-input>
       <br>
 
       <!-- Los nombres de ids o clases, mejor con _, xq polymer busca los guiones medios para buscar componentes y se hace líos achuff
@@ -74,6 +74,7 @@
       mariaChanged: function(newValue, oldValue){
         console.log('Maria was ' + oldValue);
         console.log('and now is ' + newValue);
+       // component.$.number_display.click();
       },
 
       inputNumberChanged: function(newValue){
@@ -83,6 +84,8 @@
         //Polymer cachea todos los elementos a los que hayas asignado un id en un array para no tener que recorrer el DOM con querySelector y ser más eficiente
         console.log(component.$);
         component.$.number_display.click();
+        var newMeasure = 15 + (10*newValue);
+        component.style.height = newMeasure + "px'";
       },
 
       _tapHandler: function(event){
