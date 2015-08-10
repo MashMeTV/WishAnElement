@@ -15,7 +15,7 @@
     </style>
 
     <div>
-      <paper-input id="number_input" label="Enter a number" maxValue="99" type="number" char-counter auto-validate value="{{inputNumber}}"></paper-input>
+      <paper-input id="number_input" label="Enter a number" prevent-invalid-input allowed-pattern="[0-99]" type="number" char-counter value="{{inputNumber}}"></paper-input>
       <br>
 
       <!-- Los nombres de ids o clases, mejor con _, xq polymer busca los guiones medios para buscar componentes y se hace líos achuff
@@ -39,7 +39,7 @@
         name: {
           type: String,
           value: 'Maria´s name',
-          observer: 'mariaChanged'
+          observer: 'mariaChanged',
         },
         inputNumber: {
           type: Number,
@@ -82,10 +82,17 @@
         var component = this;
         console.log('new number ' + newValue);
         //Polymer cachea todos los elementos a los que hayas asignado un id en un array para no tener que recorrer el DOM con querySelector y ser más eficiente
+        if(newValue>80){
+          alert("not valid!" + newValue);
+        };
         console.log(component.$);
         component.$.number_display.click();
-        var newMeasure = 15 + (10*newValue);
-        component.style.height = newMeasure + "px'";
+
+        var boton = this.querySelector("#number_display");
+        var newMeasure = 80 + (2*newValue);
+        console.log(newMeasure);
+        boton.style.height = newMeasure + "px";
+        boton.style.width = newMeasure + "px";
       },
 
       _tapHandler: function(event){
@@ -93,13 +100,14 @@
         console.log(event);
         console.log(event.type);
       }
+
+   /*   validate: function(value){
+        console.log(value);
+        var valueNum = parseInt(value, 10);
+        console.log(valueNum);
+        if(valueNum<100){return true}
+        else {return false} 
+      }*/
     });
   })();
 </script>
-
-
-<!-- Hacer que cada vez que cambie el valor de {{inputValue}} el botón se comporte como cuando lo pulsas
-:) -->
-<!-- Meter con JS que el radio del círculo sea (({{inputValue}}*10)+30)px -->
-
-<!-- /* No sé en qué parte de esto se metería una var de JS para hacer de contador del inputValue, me la juego a fuera de Polymer, pero no sé si en otra function */ -->
