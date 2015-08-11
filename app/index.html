@@ -177,7 +177,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 User:<span>{{params.name}}</span>
                 </h2>
                 <div>This is <span>{{params.name}}</span>'s section</div>
-                <p>Ver de dónde vienen los parámetros</p>
               </paper-material>
             </section>
 
@@ -186,7 +185,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <h2 class="paper-font-display2">Contact</h2>
                 <p>This is the contact section</p>
                 <p>Mirar por qué si haces scroll en una sección te lo mantiene cuando cambias a otra</p>
-                <p>No entiendo por qué se colocan de esa forma los paréntesis en la parte de JS de los elementos</p>
               </paper-material>
               <paper-input label="cheer!" error-message="Invalid input!" type="text"></paper-input>
               <br>
@@ -197,6 +195,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <br>
               <marias-element></marias-element>
               <br>
+              <br>
+              <br>
+              <br>
+              <interactive-graph></interactive-graph>
               <br>
               <br>
               <paper-dialog>
@@ -225,16 +227,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  duration="6000"
                  text="Caching complete! This app will work offline.">
     </paper-toast>
-
-    <platinum-sw-register auto-register
-                          clients-claim
-                          skip-waiting
-                          on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="networkFirst"
-                         precache-file="precache.json">
-      </platinum-sw-cache>
-    </platinum-sw-register>
-
   </template>
 
   <!-- build:js scripts/app.js -->
