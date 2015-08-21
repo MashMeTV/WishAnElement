@@ -86,7 +86,46 @@
         sliderThreeValueChanged: function (newValue, oldValue){
           var canvas = this.querySelector("#graphCanvas");
           var ctx = canvas.getContext("2d");
-          /* chapuza a cambiar */
+          // LOOK WHAT YOUVE DONEEEE YOUVE BROKE MEEEEE :(
+          // Antes de empezar pone toda la fila en blanco
+          ctx.fillStyle = "#FFFDDC";
+          var expon = new Path2D();
+          expon.moveTo(45, 145);
+          expon.arc(45, 145, 37, 0, 360, false);
+          expon.moveTo(125, 145)
+          expon.arc(125, 145, 37, 0, 360, false);
+          expon.moveTo(210, 145);
+          expon.arc(210, 145,37, 0, 360, false);
+          ctx.fill(expon);
+          // pone el fillStyle en verde y colorea con el nuevo valor
+          ctx.fillStyle = "green";
+          var expon = new Path2D();
+          switch(newValue){
+            case (newValue < 33):
+              alert("HEY");
+              expon.moveTo(45, 145);
+              expon.arc(45, 145, 35, 0, newValue/6, false);
+            break;
+            case (newValue > 34 && newValue < 67):
+              alert("HO");
+              expon.moveTo(45, 145);
+              expon.arc(45, 145, 35, 0, 360, false);
+              expon.moveTo(125, 145)
+              expon.arc(125, 145, 35, newValue/6, oldValue/6, false);
+            break;
+            case (newValue > 68 && newValue < 100):
+              alert("wut?");
+              expon.moveTo(45, 145);
+              expon.arc(45, 145, 35, 0, 360, false);
+              expon.moveTo(125, 145)
+              expon.arc(125, 145, 35, 0, 360, false);
+              expon.moveTo(210, 145);
+              expon.arc(210, 145, 35, newValue/6, oldValue/6, false);
+            break;
+          }
+          ctx.fill(expon);
+
+          /* chapuza a cambiar 
           if(oldValue>newValue){
             ctx.fillStyle = "#FFFDDC";
             var expon = new Path2D();
@@ -130,8 +169,8 @@
                 //expon.arc(210, 145, 35, 0, 360, false);
                 expon.arc(210, 145, 35, oldValue/6, newValue/6, false);
             }
-            ctx.fill(expon);
-          }
+            ctx.fill(expon);*/
+          
         }
       });
     })();
