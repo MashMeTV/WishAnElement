@@ -1,6 +1,5 @@
 <dom-module id="marias-element">
-  <template>
-    <style>
+  <style>
       #number_display {
         height: 80px;
         width: 80px;
@@ -12,8 +11,8 @@
           color: white;
       }
 
-    </style>
-
+  </style>
+  <template>
     <div>
       <paper-input id="number_input" label="Enter a number" auto-validate pattern="[0-99]" error-message="Numbers up to 99!" value="{{inputNumber}}"></paper-input>
       <br>

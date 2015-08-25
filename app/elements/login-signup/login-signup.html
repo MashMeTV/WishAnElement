@@ -1,0 +1,52 @@
+<dom-module id="login-signup">
+<style type="text/css">
+/* FIX THIIIIIIS*/
+  :host paper-material {
+    width: 320px;
+    height: 430px;
+    padding: 25px 17px 20px 17px;
+    display: flex;
+    flex-direction: column;
+  };
+  :host div {
+    flex: 3;
+  };
+  :host bottomBox{
+    flex: 1;
+  };
+  bottomBox paper-button {
+    bottom: 0;
+    position: absolute;
+  };
+</style>
+<template>
+<paper-material>
+  <div>
+    <div id="loginCard">
+      <!-- Regex understandable pattern: http://regexr.com/3blcn -->
+      <!-- Falta un "no @" en usr validation pq si no me toma los mails como usr y los valida todos-->
+      <paper-input label="User or e-mail" error-message="Unvalid username or email" auto-validate pattern="([a-zA-Z0-9_]{3,15})|[a-zA-Z]+[.?!.]?[_a-zA-Z0-9]*[@][a-zA-Z]+[.a-zA-Z]*?[.]+[a-z]{2,3})"></paper-input>
+      <paper-input label="Password" error-message="Unvalid password, 8 char. minimum, no spaces allowed" char-counter type="password" pattern="[^\s\n]{8,}" auto-validate></paper-input>
+    </div>
+
+    <div id="signupCard" hidden>
+      holi
+    </div>
+  </div>
+  <div class="bottomBox">
+    <!-- when one toggles, the other 'untoggles' -->
+    <paper-button id="loginButton" raised ></paper-button>
+    <paper-button id="signupButton" raised ></paper-button>
+  </div>
+</paper-material>
+</template>
+
+<script type="text/javascript">
+/* attribute hiden depending on paperbuttons, also their toggles */
+  (function(){
+    Polymer({
+    is: "login-signup"
+  });
+  })();
+</script>
+</dom-module>
