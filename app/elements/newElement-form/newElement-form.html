@@ -1,0 +1,106 @@
+<dom-module id='newElement-form'>
+<style type="text/css">
+  
+</style>
+<template>
+  <paper-material elevation="1">
+   <h3>Any idea?</h3> 
+   <paper-input value="{{name}}" label="Element name" pattern="[a-zA-Z]+[-][a-zA-Z]+" auto-validate error-message="The name must contain a '-' between two words"></paper-input>
+   <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
+   <paper-input value="{{desc}}" label="Long (optional) description" maxlength=2000 char-counter></paper-input>
+  <!-- <paper-input label="" type="file"></paper-input> -->
+   <paper-input value="{{author}}" label="Author"></paper-input> <!-- icono tw, github o text input -->
+   <paper-button id="submitFormButton" disabled>Submit!</paper-button>
+  </paper-material>
+</template>
+<script type="text/javascript">
+  (function(){
+    Polymer({
+      is: 'newElement-form',
+      propierties: {
+        /* Preset values */
+        created_at:{
+          type: Number,
+          value: ''
+        },
+        elementId:{
+          type: Number,
+          value: '',
+          readOnly: true
+        },
+        votes:{
+          type: Number,
+          value: '',
+        },
+
+        /* Input values */
+        name:{
+          type: String,
+          value: ''
+        },
+        author:{
+          type: String,
+          value: ''
+        },
+        desc_short:{
+          type: String,
+          value: ''
+        },
+
+        /* Optional Input Values */
+        desc:{
+          type: String,
+          value: ''
+        }
+      /*  
+        screen:{
+          type: String,
+          value: ''
+        }, 
+      */
+      },
+      ready: function(){
+        var date = new Date;
+        this.created_at = date.getTime();
+        this.votes = 0;
+        this.elementId = Math.floor((Math.random()*10)+1);
+      },
+      /* No sé si en vez de así tendría que hacerlo con una propiedad para
+      el botón y un reflectToAttribute, esta me pareció la mejor forma */
+      
+      observers: [
+        'enableButton(name, author, desc_short)'
+      ],
+      enableButton: function(name, author, desc_short){
+        if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /\w/.test(author) && /\w/.test(desc_short)){
+          //console.log("set enable");
+          this.$.submitFormButton.removeAttribute("disabled");
+        }
+        else {
+          //console.log("set disable");
+          this.$.submitFormButton.setAttribute("disabled", '');
+        }
+      },
+      listeners: {
+        'submitFormButton.tap': '_tapHandler'
+      },
+      _tapHandler: function(){
+       /* console.log ("Element ID: " + this.elementId + ",\n" + "Created at: " + this.created_at + ",\n" + "Element votes: " + this.votes + ",\n" + "Element name: " + this.name + ",\n" + "Author: " + this.author + ",\n" +"Short description: " + this.desc_short + ",\n" + "Optional description: " + this.desc + "."); */
+       var element = {
+        "elementId": this.elementId,
+        "name": this.name,
+        "author": this.author,
+        "desc": this.description, 
+        "desc_short": this.desc_short,
+        "created_at": this.created_at,
+        "votes": this.votes
+       };
+       return element;
+      }
+    });
+  })();
+</script>
+<!-- Hacer lo de github -->
+<!-- Maquetar todo con Flex -->
+<!-- Poner e objeto como console.log cuando el boton ya vaya y hablar con Víctor -->
+</dom-module>
