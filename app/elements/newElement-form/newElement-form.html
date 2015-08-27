@@ -1,10 +1,19 @@
 <dom-module id='newElement-form'>
 <style type="text/css">
-  
+  #newElementFormContainer {
+    padding: 15px 45px 30px 30px;
+    justify-content: center;
+  }
+  #newElementFormContainer h3 {
+    text-align: center;
+  }
+  #submitFormButton {
+    margin-top: 15px; 
+  }
 </style>
 <template>
-  <paper-material elevation="1">
-   <h3>Any idea?</h3> 
+  <paper-material elevation="1" id="newElementFormContainer">
+   <h3>Suggest a new element!</h3> 
    <paper-input value="{{name}}" label="Element name" pattern="[a-zA-Z]+[-][a-zA-Z]+" auto-validate error-message="The name must contain a '-' between two words"></paper-input>
    <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
    <paper-input value="{{desc}}" label="Long (optional) description" maxlength=2000 char-counter></paper-input>
@@ -95,6 +104,7 @@
         "created_at": this.created_at,
         "votes": this.votes
        };
+       console.log(element);
        return element;
       }
     });
