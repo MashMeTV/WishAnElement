@@ -9,8 +9,8 @@
    <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
    <paper-input value="{{desc}}" label="Long (optional) description" maxlength=2000 char-counter></paper-input>
   <!-- <paper-input label="" type="file"></paper-input> -->
-   <paper-input value="{{author}}" label="Author"></paper-input> <!-- icono tw, github o text input -->
-   <paper-button id="submitFormButton" disabled>Submit!</paper-button>
+   <paper-input value="{{author}}" label="Author"></paper-input>
+   <paper-button id="submitFormButton" raised disabled>Submit!</paper-button>
   </paper-material>
 </template>
 <script type="text/javascript">
@@ -65,9 +65,9 @@
         this.votes = 0;
         this.elementId = Math.floor((Math.random()*10)+1);
       },
+
       /* No sé si en vez de así tendría que hacerlo con una propiedad para
       el botón y un reflectToAttribute, esta me pareció la mejor forma */
-      
       observers: [
         'enableButton(name, author, desc_short)'
       ],
@@ -100,7 +100,5 @@
     });
   })();
 </script>
-<!-- Hacer lo de github -->
-<!-- Maquetar todo con Flex -->
-<!-- Poner e objeto como console.log cuando el boton ya vaya y hablar con Víctor -->
+<!-- Maquetar todo con Flex + Styling-->
 </dom-module>
