@@ -8,7 +8,30 @@
     text-align: center;
   }
   #submitFormButton {
-    margin-top: 15px; 
+    margin-top: 25px;
+    position: relative; 
+  }
+  #DescAndFileForm {
+    display: flex;
+    flex-direction: horizontal;
+  }
+  #DescAndFileForm paper-input:first-child {
+    flex: 4;
+  }
+  #DescAndFileForm div {
+    flex: 1;
+    padding: 30px 0px 0px 95px;
+  }
+  #SchemeUploadButton {
+    height: 25px;
+    width: 100px; 
+    font-size: 10px;
+  }
+  #SchemeUpload{
+    display: none;
+    float: right;
+    height: 100%;
+    width: 100%;
   }
 </style>
 <template>
@@ -16,9 +39,20 @@
    <h3>Suggest a new element!</h3> 
    <paper-input value="{{name}}" label="Element name" pattern="[a-zA-Z]+[-][a-zA-Z]+" auto-validate error-message="The name must contain a '-' between two words"></paper-input>
    <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
-   <paper-input value="{{desc}}" label="Long (optional) description" maxlength=2000 char-counter></paper-input>
-  <!-- <paper-input label="" type="file"></paper-input> -->
-   <paper-input value="{{author}}" label="Author"></paper-input>
+   <!-- ¿Si quisiese que el paper-input se comportase como un text-area, habria forma de
+   importar el comportamiento de "iron-autogrow-textarea"? -->
+   <div id="DescAndFileForm">
+    <paper-input value="{{desc}}" label="Long (optional) description" maxlength=2000 char-counter></paper-input>
+    <div>
+      <!-- Este botón me vacila mucho, pq no hay forma de que se agrande (aumenta el 
+      espacio para hacer click pero no el botón en sí =( -->
+      <paper-button raised id="SchemeUploadButton" onclick="document.getElementById('SchemeUpload').click()">
+        Upload scheme
+      </paper-button>
+      <input id="SchemeUpload" type="file" accept="image/*"></input>
+    </div>
+   </div>
+   <paper-input value="{{author}}" label="Author (Name, Twitter, Github... Feel free!)"></paper-input>
    <paper-button id="submitFormButton" raised disabled>Submit!</paper-button>
   </paper-material>
 </template>
@@ -60,28 +94,20 @@
         desc:{
           type: String,
           value: ''
-        }
-      /*  
-        screen:{
+        },  
+        screen:{  // hated property :_)
           type: String,
           value: ''
-        }, 
-      */
+        }
       },
-      ready: function(){
-        var date = new Date;
-        this.created_at = date.getTime();
-        this.votes = 0;
-        this.elementId = Math.floor((Math.random()*10)+1);
-      },
-
       /* No sé si en vez de así tendría que hacerlo con una propiedad para
       el botón y un reflectToAttribute, esta me pareció la mejor forma */
       observers: [
-        'enableButton(name, author, desc_short)'
+        'enableButton(name, author, desc_short)',
+        'showThumbnail(screen)'
       ],
       enableButton: function(name, author, desc_short){
-        if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /\w/.test(author) && /\w/.test(desc_short)){
+        if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /[\w]+/.test(author) && /\w/.test(desc_short)){
           //console.log("set enable");
           this.$.submitFormButton.removeAttribute("disabled");
         }
@@ -90,19 +116,30 @@
           this.$.submitFormButton.setAttribute("disabled", '');
         }
       },
+      showThumbnail: function(screen){
+        alert("HOO");
+        if(screen.value != ''){
+          alert("yay!");
+          this.$.SchemeUploadButton.style.backgroundColor = "red";
+        }
+      },
       listeners: {
         'submitFormButton.tap': '_tapHandler'
       },
       _tapHandler: function(){
-       /* console.log ("Element ID: " + this.elementId + ",\n" + "Created at: " + this.created_at + ",\n" + "Element votes: " + this.votes + ",\n" + "Element name: " + this.name + ",\n" + "Author: " + this.author + ",\n" +"Short description: " + this.desc_short + ",\n" + "Optional description: " + this.desc + "."); */
-       var element = {
-        "elementId": this.elementId,
-        "name": this.name,
-        "author": this.author,
-        "desc": this.description, 
-        "desc_short": this.desc_short,
-        "created_at": this.created_at,
-        "votes": this.votes
+        var date = new Date;
+        this.created_at = date.getTime();
+        this.votes = 0;
+        this.elementId = Math.floor((Math.random()*10)+1);
+         var element = {
+          "elementId": this.elementId,
+          "name": this.name,
+          "author": this.author,
+          "desc": this.desc, 
+          "desc_short": this.desc_short,
+          "screen": this.screen,
+          "created_at": this.created_at,
+          "votes": this.votes
        };
        console.log(element);
        return element;
@@ -110,5 +147,4 @@
     });
   })();
 </script>
-<!-- Maquetar todo con Flex + Styling-->
 </dom-module>
