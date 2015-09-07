@@ -1,31 +1,42 @@
 <dom-module id='newElement-form'>
 <style type="text/css">
+/*          Element to-do
+   1. Arreglar este css para no llorar cada vez que lo veo
+   2. Boton de submit bg #FFE907; cuando no esté disabled
+   3. Titulo más bonico 
+   5. Que el botón de submit img me haga caso (físico y de subir el file)
+*/
   #newElementFormContainer {
     padding: 15px 45px 30px 30px;
     justify-content: center;
   }
-  #newElementFormContainer h3 {
-    text-align: center;
+  #newElementFormContainer paper-input {
+    margin-top: 15px;
   }
   #submitFormButton {
     margin-top: 25px;
-    position: relative; 
+    position: relative;
   }
   #DescAndFileForm {
+    margin: 35px 0px 0px 0px;
+
     display: flex;
     flex-direction: horizontal;
   }
-  #DescAndFileForm paper-input:first-child {
-    flex: 4;
+  #DescAndFileForm paper-textarea {
+    flex: 5;
   }
   #DescAndFileForm div {
     flex: 1;
-    padding: 30px 0px 0px 95px;
-  }
+    display: float;
+    bottom: 0;
+    /*padding: 30px 0px 0px 95px;
+  */}
   #SchemeUploadButton {
     height: 25px;
     width: 100px; 
     font-size: 10px;
+    bottom: 0;
   }
   #SchemeUpload{
     display: none;
@@ -35,14 +46,12 @@
   }
 </style>
 <template>
-  <paper-material elevation="1" id="newElementFormContainer">
+  <paper-material elevation="2" id="newElementFormContainer">
    <h3>Suggest a new element!</h3> 
    <paper-input value="{{name}}" label="Element name" pattern="[a-zA-Z]+[-][a-zA-Z]+" auto-validate error-message="The name must contain a '-' between two words"></paper-input>
    <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
-   <!-- ¿Si quisiese que el paper-input se comportase como un text-area, habria forma de
-   importar el comportamiento de "iron-autogrow-textarea"? -->
    <div id="DescAndFileForm">
-    <paper-input value="{{desc}}" label="Long (optional) description" maxlength=2000 char-counter></paper-input>
+     <paper-textarea value="{{desc}}" label="Long (optional) description" rows="3" max-rows="3" maxlength=2000 char-counter></paper-textarea>
     <div>
       <!-- Este botón me vacila mucho, pq no hay forma de que se agrande (aumenta el 
       espacio para hacer click pero no el botón en sí =( -->
@@ -73,7 +82,7 @@
         },
         votes:{
           type: Number,
-          value: '',
+          value: '0',
         },
 
         /* Input values */
@@ -100,8 +109,7 @@
           value: ''
         }
       },
-      /* No sé si en vez de así tendría que hacerlo con una propiedad para
-      el botón y un reflectToAttribute, esta me pareció la mejor forma */
+
       observers: [
         'enableButton(name, author, desc_short)',
         'showThumbnail(screen)'
@@ -129,9 +137,8 @@
       _tapHandler: function(){
         var date = new Date;
         this.created_at = date.getTime();
-        this.votes = 0;
         this.elementId = Math.floor((Math.random()*10)+1);
-         var element = {
+        var element = {
           "elementId": this.elementId,
           "name": this.name,
           "author": this.author,

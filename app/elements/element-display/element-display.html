@@ -1,56 +1,104 @@
 <dom-module id="element-display">
   <style type="text/css">
-  /* limpiar css :3 */
-    #mainBox {
-      height: 470px;
-      width: 320px;
-      padding: 15px 9px 0px;
+    #elementDisplayMain {
+      height: 500px;
+      width: 400px;
       margin: 0px;
+      padding: 0px; 
+      overflow-y: auto;
     }
-    #flexBox {
-      margin: 0px;
-      border: 0px;
-      padding: 0px;
-      height: 440px;
-      width: 320px;
-      display: flex;
-     /* background-color: green;*/
-      overflow: scroll;
-
-      flex-direction: column;
+    #elementDisplayMain h2 {
+      text-align: center;
     }
     #infoCards {
-      padding: 0;
-     /* background-color: red; */
-      margin: 3px 0 3px 0;
-      height: 90px;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
+      margin: 5px 0px 5px 0px;
+      padding: 15px; 
+      height: 120px;
+      width: 360px;
+      display: inline-block;
+    }    
+    #authorImg {
+      height: 60px;
+      width: 60px;
+      background-image: url("http://th07.deviantart.net/fs71/PRE/i/2013/284/0/3/batman_by_funky23-d6q1yq3.jpg");
+      background-size: cover;
+      margin: 0px;
+      float: left;
+      position: absolute;
     }
-    #infoCards img {
-      height: 45px;
-      width: 45px;
-      margin: 5px;
+    #elementName, #elementInfo {
+      display: inline-block;
+      margin: 0px;
     }
-    #infoCards h3 {
+    #elementInfo {
+      width: 280px;
       float: right;
-      display: absolute;
     }
-    #innerDiv {
-      display: flex;
-      flex-direction: column;
-    }
-
+    #elementInfo2 {
+      width: 60px;
+      float: left;
+      margin-top: 55px;
+      line-height: 60%;
+    }    
   </style>
 <template>
-  <paper-material elevation="3" id="mainBox">
-    <div id="flexBox">
-      
-    </div>
+  <paper-material elevation="2" id="elementDisplayMain">
+    <h2>Element Ranking</h2>
+
+    <paper-material elevation="1" id="infoCards">
+      <div id="authorImg"></div>
+      <div id="elementInfo">
+        <h3 id="elementName">Element Name</h3>
+        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
+      </div>
+      <div id="elementInfo2">
+        <p>Votes: </p>
+        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
+      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
+    </paper-material>
+
+    <paper-material elevation="1" id="infoCards">
+      <div id="authorImg"></div>
+      <div id="elementInfo">
+        <h3 id="elementName">Element Name</h3>
+        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
+      </div>
+      <div id="elementInfo2">
+        <p>Votes: </p>
+        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
+      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
+    </paper-material>
+
+    <paper-material elevation="1" id="infoCards">
+      <div id="authorImg"></div>
+      <div id="elementInfo">
+        <h3 id="elementName">Element Name</h3>
+        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
+      </div>
+      <div id="elementInfo2">
+        <p>Votes: </p>
+        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
+      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
+    </paper-material>
+
+    <paper-material elevation="1" id="infoCards">
+      <div id="authorImg"></div>
+      <div id="elementInfo">
+        <h3 id="elementName">Element Name</h3>
+        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
+      </div>
+      <div id="elementInfo2">
+        <p>Votes: </p>
+        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
+      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
+    </paper-material>
   </paper-material>
 </template>
-
+<scrip type="text/javascript">
+  var expandInfoCard = function() {
+  alert("HEY");
+};
+</script>
 <script type="text/javascript">
   (function(){
     Polymer({
@@ -62,35 +110,44 @@
         authorInfo: {
           type: Object
         }
-      },
-      ready: function(){
-        // la idea es que esto vaya con info del object authorInfo
-        var component = this;
-        var mainDiv = component.$.flexBox;
-        var x = Math.floor((Math.random()*7)+1);
-        for(var i = 0; i<x; i++){
-          var infoCards = document.createElement("paper-material");
-          infoCards.id = "infoCards";
-          
-          var img = document.createElement("img");
-          img.src = "http://th07.deviantart.net/fs71/PRE/i/2013/284/0/3/batman_by_funky23-d6q1yq3.jpg";
-
-          var innerDiv = document.createElement("div");
-          innerDiv.id = "innerDiv";
-          
-          var content = document.createTextNode("Element " + i + " name");
-          var title = document.createElement("h3");
-          title.appendChild(content);
-          innerDiv.appendChild(title);
-          
-          var content = document.createTextNode("Element description goes here");
-          innerDiv.appendChild(content);
-
-          infoCards.appendChild(img);
-          infoCards.appendChild(innerDiv);
-          mainDiv.appendChild(infoCards);
-        }
       }
+      /*
+      ready: function(){
+        
+        var component = this;
+        var mainDiv = component.$.elementDisplayMain;
+
+        var createCard = function (info){ 
+          
+          var infoCards = document.createElement("div");
+          infoCards.id = "infoCards";
+          // fill inforCard (img, name, desc, VOTES, MORE INFO)
+            var authorImg = document.createElement("div");
+            authorImg.id = "authorImg";
+            authorImg.style.backgroundImage = "url(http://th07.deviantart.net/fs71/PRE/i/2013/284/0/3/batman_by_funky23-d6q1yq3.jpg)";
+            authorImg.style.height = "55px";
+            authorImg.style.width = "55px";
+            infoCards.appendChild(authorImg);
+
+            var content = document.createTextNode("Element " + info);
+            var elementName = document.createElement("h4");
+            elementName.appendChild(content);
+            infoCards.appendChild(elementName);
+            
+            var content = document.createTextNode("Element description goes here");
+            var elementDesc = document.createElement("p");
+            elementDesc.appendChild(content);
+            infoCards.appendChild(elementDesc);
+
+          mainDiv.appendChild(infoCards);
+        };
+
+        // pasarle los parámetros con un for each(? con info del elementObject
+        var x = Math.floor((Math.random()*10)+1);
+        for(var i = 0; i<x; i++){
+          createCard(i);
+        }
+      }*/
     });
   })();
 </script>
