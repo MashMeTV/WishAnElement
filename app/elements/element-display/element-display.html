@@ -45,53 +45,19 @@
   <paper-material elevation="2" id="elementDisplayMain">
     <h2>Element Ranking</h2>
 
-    <paper-material elevation="1" id="infoCards">
-      <div id="authorImg"></div>
-      <div id="elementInfo">
-        <h3 id="elementName">Element Name</h3>
-        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
-      </div>
-      <div id="elementInfo2">
-        <p>Votes: </p>
-        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
-      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
-    </paper-material>
-
-    <paper-material elevation="1" id="infoCards">
-      <div id="authorImg"></div>
-      <div id="elementInfo">
-        <h3 id="elementName">Element Name</h3>
-        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
-      </div>
-      <div id="elementInfo2">
-        <p>Votes: </p>
-        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
-      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
-    </paper-material>
-
-    <paper-material elevation="1" id="infoCards">
-      <div id="authorImg"></div>
-      <div id="elementInfo">
-        <h3 id="elementName">Element Name</h3>
-        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
-      </div>
-      <div id="elementInfo2">
-        <p>Votes: </p>
-        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
-      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
-    </paper-material>
-
-    <paper-material elevation="1" id="infoCards">
-      <div id="authorImg"></div>
-      <div id="elementInfo">
-        <h3 id="elementName">Element Name</h3>
-        <p>Element's short description goes here, up to 140 characters. Press "+ info" for more information about the element. I hope this fits here :D</p>
-      </div>
-      <div id="elementInfo2">
-        <p>Votes: </p>
-        <a href="#" onClick="expandInfoCard()">+ info</a href="#">
-      </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
-    </paper-material>
+    <template is="dom-repeat" items="[[elements]]">
+      <paper-material elevation="1" id="infoCards" >
+        <div id="authorImg"></div>
+        <div id="elementInfo">
+          <h3 id="elementName">[[item.name]]</h3>
+          <p>[[item.desc_short]]</p>
+        </div>
+        <div id="elementInfo2">
+          <p>Votes:</p><span>[[item.votes]]</span>
+          <a href="#" onClick="expandInfoCard()">+ info</a href="#">
+        </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
+      </paper-material>
+    </template>
   </paper-material>
 </template>
 

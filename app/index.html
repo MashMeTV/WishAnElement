@@ -52,6 +52,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
+
+  <!--firebase db -->
+  <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+  <!--endFirebase db -->
 </head>
 
 <body unresolved class="fullbleed layout vertical">
@@ -70,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="bottom title"></div>
     </paper-toolbar>
     <div>
-      <element-display></element-display>
+      <element-display elements="[[elements]]"></element-display>
       <element-summary></element-summary>
       <newElement-form></newElement-form>
     </div>
