@@ -58,7 +58,7 @@
       <paper-button raised id="SchemeUploadButton" onclick="document.getElementById('SchemeUpload').click()">
         Upload scheme
       </paper-button>
-      <input id="SchemeUpload" type="file" accept="image/*"></input>
+      <input id="SchemeUpload" type="file" value="{{screen}}" accept="image/*"></input>
     </div>
    </div>
    <paper-input value="{{author}}" label="Author (Name, Twitter, Github... Feel free!)"></paper-input>
@@ -124,6 +124,7 @@
           this.$.submitFormButton.setAttribute("disabled", '');
         }
       },
+      /*
       showThumbnail: function(screen){
         alert("HOO");
         if(screen.value != ''){
@@ -131,6 +132,7 @@
           this.$.SchemeUploadButton.style.backgroundColor = "red";
         }
       },
+      */
       listeners: {
         'submitFormButton.tap': '_tapHandler'
       },
