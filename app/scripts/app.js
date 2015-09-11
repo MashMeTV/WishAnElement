@@ -38,4 +38,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   };
 
+  //Connect to Firebase
+  var firebaseRef = new Firebase('https://shining-torch-6028.firebaseio.com/wae/data');
+
+  //Getting elements reference
+  app.elementsRef = firebaseRef.child('elements');
+
+  //Callback when elements is changed, app binded
+  //app.elements updated via polymer .push('arrayName', value), makes the template render
+  app.renderElements = function(snapshot){
+    console.log('renderElements')
+    app.elements = [];
+    snapshot.forEach(function(childSnapshot){
+      var item = childSnapshot.val();
+      app.push('elements', item);
+    });
+    console.log(app.elements);
+  };
+
+  app.dbReadingError = function(erroObject){
+    console.log("The read failed: " + errorObject.code);
+  };
+
+  //listener and callback for elements changed
+  app.elementsRef.on('value', app.renderElements.bind(app), app.dbReadingError);
+
 })(document);

@@ -55,7 +55,7 @@
     <div>
       <!-- Este botón me vacila mucho, pq no hay forma de que se agrande (aumenta el 
       espacio para hacer click pero no el botón en sí =( -->
-      <paper-button raised id="SchemeUploadButton" onclick="document.getElementById('SchemeUpload').click()">
+      <paper-button raised id="SchemeUploadButton" on-click="showInput">
         Upload scheme
       </paper-button>
       <input id="SchemeUpload" type="file" value="{{screen}}" accept="image/*"></input>
@@ -82,7 +82,7 @@
         },
         votes:{
           type: Number,
-          value: '0',
+          value: 0,
         },
 
         /* Input values */
@@ -104,18 +104,21 @@
           type: String,
           value: ''
         },  
-        screen:{  // hated property :_)
+        photo:{  // hated property :_)
           type: String,
           value: ''
+        },
+        photoPath:{
+          type: String
         }
       },
 
       observers: [
-        'enableButton(name, author, desc_short)',
-        'showThumbnail(screen)'
+        'enableButton(name, author, desc_short, photoPath)',
+        'showThumbnail(photoPath)'
       ],
       enableButton: function(name, author, desc_short){
-        if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /[\w]+/.test(author) && /\w/.test(desc_short)){
+        if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /[\w]+/.test(author) && /\w/.test(desc_short) && this.photoPath != undefined){
           //console.log("set enable");
           this.$.submitFormButton.removeAttribute("disabled");
         }
@@ -124,34 +127,43 @@
           this.$.submitFormButton.setAttribute("disabled", '');
         }
       },
-      /*
-      showThumbnail: function(screen){
-        alert("HOO");
-        if(screen.value != ''){
-          alert("yay!");
+      _photoChange: function(event){
+        this.photoPath = 'images/elements/' + event.target.files[0].name;
+      },
+      showInput: function(){
+        this.$.SchemeUpload.click();
+      },
+      showThumbnail: function(photoPath){
+        if(this.photoPath.value != ''){
+          console.log("yay!");
           this.$.SchemeUploadButton.style.backgroundColor = "red";
         }
       },
-      */
+      
       listeners: {
-        'submitFormButton.tap': '_tapHandler'
+        'submitFormButton.tap': '_tapHandler',
+        'SchemeUpload.change': '_photoChange'
       },
       _tapHandler: function(){
+        var elementsRef = new Firebase('https://shining-torch-6028.firebaseio.com/wae/data/elements');
         var date = new Date;
+
         this.created_at = date.getTime();
-        this.elementId = Math.floor((Math.random()*10)+1);
+        this.votes = 0;
+        //this.elementId = Math.floor((Math.random()*10)+1); <<Firebase asigna uno
         var element = {
-          "elementId": this.elementId,
           "name": this.name,
           "author": this.author,
-          "desc": this.desc, 
+          "desc": this.desc,
           "desc_short": this.desc_short,
-          "screen": this.screen,
+          "photo": this.photoPath,
           "created_at": this.created_at,
           "votes": this.votes
        };
        console.log(element);
-       return element;
+       //Saving to db
+       elementsRef.push(element);
+       //return element;
       }
     });
   })();
