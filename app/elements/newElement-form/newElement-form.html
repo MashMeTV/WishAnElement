@@ -27,12 +27,15 @@
   } 
   #DescAndFileForm {
     margin: 35px 0px 0px 0px;
-
     display: flex;
     flex-direction: horizontal;
   }
   #DescAndFileForm paper-textarea {
     flex: 5;
+  }
+  #DescAndFileForm paper-textarea::shadow .input-content{
+    max-height: 300px;
+    overflow: hidden;
   }
   #DescAndFileForm div {
     flex: 1;

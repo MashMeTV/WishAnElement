@@ -65,15 +65,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body unresolved class="fullbleed layout vertical">
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
-    <paper-toolbar id="mainToolbar" style="width:100%; padding: 0; margin: 0; background-color: #5f8fca">
+    <paper-toolbar id="mainToolbar">
       <div class="middle paper-font-display2 app-name">Wish an Element</div>
     </paper-toolbar>
-    <div style="display: inline-block">
+    <div>
       <div style="display:flex; justify-content: space-around; flex-wrap:wrap; flex-direction: row">
         <element-display elements="[[elements]]" style="flex: 2"></element-display>
         <element-summary elements="[[elements]]" style="flex: 2"></element-summary>
       </div>
-      <div style="display:flex; justify-content: space-around;">
+      <div style="">
         <newElement-form style="flex: 2"></newElement-form>
       </div>      
     </div>

@@ -14,14 +14,10 @@
       text-align: center;
       margin-bottom: 30px;
     }
-  paper-icon-button.red {
+  paper-icon-button.blue {
     margin-top: 15px;
     color: #5f8fca;
     display: inline-block;    
-  }
-  paper-icon-button.blue:hover {
-    background: #5f8fca;
-    border-radius: 50%;
   }
   paper-icon-button {
     float: right;
@@ -31,7 +27,7 @@
   <paper-material elevation="2" id="elementSummaryMain">
     <template is="dom-repeat" items="[[elements]]">
       <div>
-        <paper-icon-button icon="favorite" alt="heart" class="red"></paper-icon-button>
+        <paper-icon-button icon="favorite" alt="heart" class="blue"></paper-icon-button>
         <h2><span>[[item.name]]</span> summary</h2>
         <p>Author name: <span>[[item.authorName]]</span></p>
         <p>Short Description: <span>[[item.desc_short]]</span></p>
