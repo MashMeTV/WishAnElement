@@ -1,23 +1,58 @@
 <dom-module id="element-summary">
 <style type="text/css">
-  
+  #elementSummaryMain {
+    height: 500px;
+    width: 90%;
+    margin: 5%;
+    padding: 0px;
+    overflow-y: auto;
+  }
+  #elementSummaryMain > div {
+    padding: 15px 45px 30px 45px; 
+  }
+  #elementSummaryMain h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  paper-icon-button.red {
+    margin-top: 15px;
+    color: #5f8fca;
+    display: inline-block;    
+  }
+  paper-icon-button.blue:hover {
+    background: #5f8fca;
+    border-radius: 50%;
+  }
+  paper-icon-button {
+    float: right;
+  }
 </style>
 <template>
-  <paper-material elevation="1">
-    <h2>Element Summary</h2>
-    <p>Author name:</p>
-    <p>Short Description:</p>
-    <p>Votes:</p>
-    <p>Short description:</p> 
-    <!-- Optional -->
-    <p>Long description:</p>
-    <img/> 
+  <paper-material is="dom-repeat" items="[[elements]]" elevation="2" id="elementSummaryMain">
+    <div>
+      <paper-icon-button icon="favorite" alt="heart" class="red"></paper-icon-button>
+      <h2><span>[[item.name]]</span> summary</h2>
+      <p>Author name: <span>[[item.authorName]]</span></p>
+      <p>Short Description: <span>[[item.desc_short]]</span></p>
+      <p>Votes: <span>[[item.votes]]</span></p>
+      <!-- Optional -->
+      <p>Long description: <span>[[item.desc]]</span></p>
+      <img/> <!-- scheme goes here -->
+    </div>
   </paper-material>
 </template>
 <script type="text/javascript">
   (function(){
-    Polymer(function(){
-      is: "element-summary"
+    Polymer({
+      is: "element-summary",
+      properties: {
+        elementName: {
+          type: String
+        },
+        authorInfo: {
+          type: Object
+        }
+      }
     });
   })();
 </script>

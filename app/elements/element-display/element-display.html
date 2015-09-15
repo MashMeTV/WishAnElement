@@ -2,60 +2,59 @@
   <style type="text/css">
     #elementDisplayMain {
       height: 500px;
-      width: 400px;
-      margin: 0px;
+      width: 90%;
+      margin: 5%;
       padding: 0px; 
       overflow-y: auto;
     }
     #elementDisplayMain h2 {
       text-align: center;
+      margin-bottom: 30px;
     }
     #infoCards {
-      margin: 5px 0px 5px 0px;
-      padding: 15px; 
-      height: 120px;
-      width: 360px;
+      margin: 2% 5% 2% 5%;
+      height: 25%;
+      width: 90%;
+      
+    }
+    #infoCards > div {
+      padding: 10px; 
       display: inline-block;
-    }    
+      display: flex;
+      display-wrap: wrap-reverse;
+    }
+    .displayBox {
+      height: 100%;
+      width: 100%;
+      margin: 0; 
+    }
     #authorImg {
       height: 60px;
       width: 60px;
       background-image: url("http://th07.deviantart.net/fs71/PRE/i/2013/284/0/3/batman_by_funky23-d6q1yq3.jpg");
       background-size: cover;
-      margin: 0px;
-      float: left;
-      position: absolute;
     }
-    #elementName, #elementInfo {
-      display: inline-block;
-      margin: 0px;
+    #elementName {
+      margin-top: 0px;
     }
-    #elementInfo {
-      width: 280px;
-      float: right;
-    }
-    #elementInfo2 {
-      width: 60px;
-      float: left;
-      margin-top: 55px;
-      line-height: 60%;
-    }    
   </style>
 <template>
   <paper-material elevation="2" id="elementDisplayMain">
-    <h2>Element Ranking</h2>
+    <h2>Element ranking</h2>
 
     <template is="dom-repeat" items="[[elements]]">
-      <paper-material elevation="1" id="infoCards" >
-        <div id="authorImg"></div>
-        <div id="elementInfo">
-          <h3 id="elementName">[[item.name]]</h3>
-          <p>[[item.desc_short]]</p>
+      <paper-material elevation="1" id="infoCards">
+        <div>
+          <div class="displayBox" style="flex: 1">
+            <div id="authorImg" style="backgroundImage:[[item.photoPath]]"></div>
+            <p>Votes: <span>[[item.votes]]</span></p>
+          </div>
+
+          <div class="displayBox" style="flex: 3">
+            <h3 id="elementName">[[item.name]]</h3>
+            <p>[[item.desc_short]]</p>
+          </div>
         </div>
-        <div id="elementInfo2">
-          <p>Votes:</p><span>[[item.votes]]</span>
-          <a href="#" onClick="expandInfoCard()">+ info</a href="#">
-        </div> <!-- Se despliega la foto (si hay) y la long desc (CHECK IF THERE MORE INFO TO DISPLAY)-->
       </paper-material>
     </template>
   </paper-material>
@@ -73,51 +72,6 @@
           type: Object
         }
       }
-      /*
-        Meto esto como property? No se va a incluir pq para mostrar toda la info va a otro componente, but anyway 
-          var expandInfoCard = function() {
-            var card = document.getElementById("infoCards");
-            card.style.height = "200px"
-          }
-      */
-
-      /*
-      ready: function(){
-        
-        var component = this;
-        var mainDiv = component.$.elementDisplayMain;
-
-        var createCard = function (info){ 
-          
-          var infoCards = document.createElement("div");
-          infoCards.id = "infoCards";
-          // fill inforCard (img, name, desc, VOTES, MORE INFO)
-            var authorImg = document.createElement("div");
-            authorImg.id = "authorImg";
-            authorImg.style.backgroundImage = "url(http://th07.deviantart.net/fs71/PRE/i/2013/284/0/3/batman_by_funky23-d6q1yq3.jpg)";
-            authorImg.style.height = "55px";
-            authorImg.style.width = "55px";
-            infoCards.appendChild(authorImg);
-
-            var content = document.createTextNode("Element " + info);
-            var elementName = document.createElement("h4");
-            elementName.appendChild(content);
-            infoCards.appendChild(elementName);
-            
-            var content = document.createTextNode("Element description goes here");
-            var elementDesc = document.createElement("p");
-            elementDesc.appendChild(content);
-            infoCards.appendChild(elementDesc);
-
-          mainDiv.appendChild(infoCards);
-        };
-
-        // pasarle los parámetros con un for each(? con info del elementObject
-        var x = Math.floor((Math.random()*10)+1);
-        for(var i = 0; i<x; i++){
-          createCard(i);
-        }
-      }*/
     });
   })();
 </script>

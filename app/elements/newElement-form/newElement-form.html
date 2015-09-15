@@ -1,22 +1,30 @@
 <dom-module id='newElement-form'>
 <style type="text/css">
-/*          Element to-do
-   1. Arreglar este css para no llorar cada vez que lo veo
-   2. Boton de submit bg #FFE907; cuando no esté disabled
-   3. Titulo más bonico 
-   5. Que el botón de submit img me haga caso (físico y de subir el file)
-*/
-  #newElementFormContainer {
-    padding: 15px 45px 30px 30px;
+  #newElementFormMain {
     justify-content: center;
+    width: 90%;
+    margin: 5%;
+    padding: 0px;
+    overflow-y: auto;
   }
-  #newElementFormContainer paper-input {
+  #newElementFormMain > div {
+    padding: 15px 45px 30px 45px; 
+  }
+  #newElementFormMain paper-input {
     margin-top: 15px;
+  }
+  #newElementFormMain h3 {
+    text-align: center;
   }
   #submitFormButton {
     margin-top: 25px;
     position: relative;
   }
+
+
+  #submitFormButton:not([disabled]) {
+    background-color: #5f8fca;
+  } 
   #DescAndFileForm {
     margin: 35px 0px 0px 0px;
 
@@ -30,46 +38,45 @@
     flex: 1;
     display: float;
     bottom: 0;
-    /*padding: 30px 0px 0px 95px;
-  */}
-  #SchemeUploadButton {
-    height: 25px;
-    width: 100px; 
-    font-size: 10px;
-    bottom: 0;
-  }
+  } 
   #SchemeUpload{
     display: none;
     float: right;
     height: 100%;
     width: 100%;
   }
+  #SchemeUploadButton {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    right: 0;
+
+  }
 </style>
 <template>
-  <paper-material elevation="2" id="newElementFormContainer">
-   <h3>Suggest a new element!</h3> 
-   <paper-input value="{{name}}" label="Element name" pattern="[a-zA-Z]+[-][a-zA-Z]+" auto-validate error-message="The name must contain a '-' between two words"></paper-input>
-   <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
-   <div id="DescAndFileForm">
-     <paper-textarea value="{{desc}}" label="Long (optional) description" rows="3" max-rows="3" maxlength=2000 char-counter></paper-textarea>
-    <div>
-      <!-- Este botón me vacila mucho, pq no hay forma de que se agrande (aumenta el 
-      espacio para hacer click pero no el botón en sí =( -->
-      <paper-button raised id="SchemeUploadButton" on-click="showInput">
-        Upload scheme
-      </paper-button>
-      <input id="SchemeUpload" type="file" value="{{screen}}" accept="image/*"></input>
+  <paper-material elevation="2" id="newElementFormMain">
+   <div>
+     <h3>Suggest a new element!</h3>
+     <paper-input value="{{name}}" label="Element name" pattern="[a-zA-Z]+[-][a-zA-Z]+" auto-validate error-message="The name must contain a '-' between two words"></paper-input>
+     <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
+     <div id="DescAndFileForm">
+       <paper-textarea value="{{desc}}" label="Long (optional) description" rows="3" max-rows="3" maxlength=2000 char-counter></paper-textarea>
+      <div style="position: relative">
+        <paper-button raised id="SchemeUploadButton" on-click="showInput">Scheme</paper-button>
+        <input id="SchemeUpload" type="file" value="{{screen}}" accept="image/*"></input>
+        <div></div>
+      </div>
+     </div>
+     <paper-input value="{{author}}" label="Author (Name, Twitter, Github... Feel free!)"></paper-input>
+     <paper-button id="submitFormButton" raised disabled>Submit!</paper-button>
     </div>
-   </div>
-   <paper-input value="{{author}}" label="Author (Name, Twitter, Github... Feel free!)"></paper-input>
-   <paper-button id="submitFormButton" raised disabled>Submit!</paper-button>
   </paper-material>
 </template>
 <script type="text/javascript">
   (function(){
     Polymer({
       is: 'newElement-form',
-      propierties: {
+      properties: {
         /* Preset values */
         created_at:{
           type: Number,
@@ -117,7 +124,8 @@
         'enableButton(name, author, desc_short, photoPath)',
         'showThumbnail(photoPath)'
       ],
-      enableButton: function(name, author, desc_short){
+      // en el enableButton faltaba como parametro photPath y aun así funcionaba 
+      enableButton: function(name, author, desc_short, photoPath){
         if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /[\w]+/.test(author) && /\w/.test(desc_short) && this.photoPath != undefined){
           //console.log("set enable");
           this.$.submitFormButton.removeAttribute("disabled");
@@ -127,22 +135,23 @@
           this.$.submitFormButton.setAttribute("disabled", '');
         }
       },
-      _photoChange: function(event){
-        this.photoPath = 'images/elements/' + event.target.files[0].name;
-      },
       showInput: function(){
         this.$.SchemeUpload.click();
       },
       showThumbnail: function(photoPath){
         if(this.photoPath.value != ''){
-          console.log("yay!");
-          this.$.SchemeUploadButton.style.backgroundColor = "red";
-        }
+          var SchemeUploadButton = this.$.SchemeUploadButton;
+          SchemeUploadButton.style.backgroundColor = "#5f8fca";
+          SchemeUploadButton.style.color = "white";   
+      }
       },
       
       listeners: {
-        'submitFormButton.tap': '_tapHandler',
-        'SchemeUpload.change': '_photoChange'
+        'SchemeUpload.change': '_photoChange',
+        'submitFormButton.tap': '_tapHandler'
+      },
+      _photoChange: function(event){
+        this.photoPath = 'images/elements/' + event.target.files[0].name;
       },
       _tapHandler: function(){
         var elementsRef = new Firebase('https://shining-torch-6028.firebaseio.com/wae/data/elements');
