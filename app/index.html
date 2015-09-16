@@ -66,6 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
     <paper-toolbar id="mainToolbar">
+    <!-- <paper-button onClick="_popUpForm">form popup</paper-button> -->
       <div class="middle paper-font-display2 app-name">Wish an Element</div>
     </paper-toolbar>
     <div>
@@ -78,6 +79,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>      
     </div>
   </template>
+  <!-- pop-up form js -->
+  <script>
+    var scope = document.querySelector('template[is="dom-bind"]');
+    scope._popUpForm = function(event){
+
+    }
+  </script>
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
   <!-- endbuild-->
