@@ -71,22 +71,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-toolbar>
     <div>
       <div style="display:flex; justify-content: space-around; flex-wrap:wrap; flex-direction: row">
-        <element-display elements="[[elements]]" style="flex: 2"></element-display>
-        <element-summary elements="[[elements]]" style="flex: 2"></element-summary>
+        <element-display elements="[[elements]]" style="display: flex; flex: 2; min-width: 415px"></element-display>
+        <element-summary elements="[[elements]]" style="display: flex; flex: 2; min-width: 415px"></element-summary>
       </div>
       <div style="display:flex; justify-content: space-around;">
         <newElement-form style="flex: 2"></newElement-form>
-      </div>      
+      </div>
     </div>
   </template>
-  <!-- pop-up form js -->
-  <script>
-    var scope = document.querySelector('template[is="dom-bind"]');
-    scope._popUpForm = function(event){
+  <!-- listJS -->
+  <script src="../../scripts/list.min.js"></script>
+<!--  <script src="scripts/list.min.js"></script>
+   build:js scripts/app.js
 
-    }
-  </script>
-  <!-- build:js scripts/app.js -->
+-->
   <script src="scripts/app.js"></script>
   <!-- endbuild-->
 </body>
