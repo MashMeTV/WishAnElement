@@ -4,21 +4,48 @@
       height: 500px;
       width: 90%;
       margin: 5%;
-      padding: 0px; 
+      padding: 0px;
       overflow-y: auto;
+    }
+    #elementDisplayMain .upperBox {
+      display: flex;
+      align-items: center;
+    }
+    #searchInput {
+      align-items: right;
+      display: flex;
+      flex: 8;
     }
     #elementDisplayMain h2 {
       text-align: center;
-      margin-bottom: 30px;
+      display: flex;
+      flex: 6;
+      align-items: center;
+      justify-content: center;
     }
-    #infoCards {
+    #searchButton {
+      background: none;
+      border: none;
+      outline: none;
+    }
+    #elementDisplayMain iron-icon {
+      --iron-icon-height: 32px;
+      --iron-icon-width: 32px;
+      display: flex;
+      flex: 1;
+      justify-content: center;
+    }
+    #elementDisplayMain {
+      width: 100%;
+    }
+    .infoCards {
       margin: 2% 5% 2% 5%;
       height: 25%;
       width: 90%;
-      
+
     }
-    #infoCards > div {
-      padding: 10px; 
+    .infoCards > div {
+      padding: 10px;
       display: inline-block;
       display: flex;
       display-wrap: wrap-reverse;
@@ -26,7 +53,7 @@
     .displayBox {
       height: 100%;
       width: 100%;
-      margin: 0; 
+      margin: 0;
     }
     #authorImg {
       height: 60px;
@@ -40,36 +67,97 @@
   </style>
 <template>
   <paper-material elevation="2" id="elementDisplayMain">
-    <h2>Element ranking</h2>
-
+    <div class="upperBox">
+      <h2>Element ranking</h2>
+      <paper-input class="search" id="searchInput" label="Search" hidden="true"></paper-input>
+      <button id="searchButton">
+        <iron-icon icon="search"></iron-icon>
+      </button>
+    </div>
+    <div class="list">
     <template is="dom-repeat" items="[[elements]]">
-      <paper-material elevation="1" id="infoCards">
-        <div>
-          <div class="displayBox" style="flex: 1">
-            <div id="authorImg" style="backgroundImage:[[item.photoPath]]"></div>
-            <p>Votes: <span>[[item.votes]]</span></p>
+      <div>
+        <!-- equal timestamps?  -->
+        <paper-material elevation="1" id="[[item.created_at]]" class="infoCards" onclick="sendValue(this.id)">
+          <div>
+            <div class="displayBox" style="flex: 1">
+              <div id="authorImg" style="backgroundImage:[[item.photoPath]]"></div>
+              <p>Votes: <span>[[item.votes]]</span></p>
+            </div>
+            <div class="displayBox" style="flex: 3">
+              <h3 class="elementName" id="elementName">[[item.name]]</h3>
+              <p class="shortDesc">[[item.desc_short]]</p>
+            </div>
           </div>
-
-          <div class="displayBox" style="flex: 3">
-            <h3 id="elementName">[[item.name]]</h3>
-            <p>[[item.desc_short]]</p>
-          </div>
-        </div>
-      </paper-material>
+        </paper-material>
+      </div>
     </template>
+  </div>
   </paper-material>
 </template>
-
+<script>
+  /* Pretty sure that i shouldnt be declearing this here */
+  var sendValue = function(id){
+    for (var i=0, iLen=app.elements.length; i<iLen; i++) {
+      if (app.elements[i].created_at == id) return document.querySelector('element-display').item = app.elements[i];
+    };
+  }
+</script>
 <script type="text/javascript">
   (function(){
     Polymer({
       is: "element-display",
       properties: {
-        elementName: {
-          type: String
-        },
-        authorInfo: {
+        item: {
           type: Object
+        }
+      },
+      listeners: {
+        'searchButton.tap': '_searchButtonTap',
+      },
+      observers: [
+        'updateSummary(item)'
+      ],
+      updateSummary: function(){
+        document.querySelector('element-summary').info = this.item;
+      },
+      _searchButtonTap: function(){
+        var component = this;
+        var str = component.$.searchInput.value;
+        //(component.$.searchInput.getAttribute('hidden') == 'true') ? component.$.searchInput.removeAttribute('hidden') : ;
+        if(component.$.searchInput.getAttribute('hidden') == 'true'){
+          // Add neon animation
+          component.$.searchInput.removeAttribute('hidden');
+          // When the searchInput is displayed, we take the full list as the list content
+          // Guess we'll have to change this when the content is too big to be displayed at once
+          var options = {
+            valueNames: [ 'elementName', 'shortDesc' ]
+          };
+          var userList = new List('elementDisplayMain', options);
+        }else{
+          var deleteChar = setInterval(function(){
+            str = str.substring(0, str.length - 1);
+            component.$.searchInput.value = str;
+            // subtracs until str.length==0 and then the display list is loaded again
+            // this time with the info from firebase.
+            // CRASHES when there's no match in the latest search.
+            if(str.length==0){
+              component.$.searchInput.setAttribute('hidden','true');
+              var options = {
+                valueNames: [ 'elementName', 'shortDesc' ]
+              };
+              var values = [];
+              for (var i=0; i<app.elements.length; i++){
+                values.push({
+                  elementName: app.elements[i].name,
+                  shortDesc: app.elements[i].desc_short
+                });
+              };
+              var userList = new List('elementDisplayMain', options, values);
+              component.$.searchInput.setAttribute('hidden', 'true');
+              clearInterval(deleteChar);
+            }
+          }, 120);
         }
       }
     });
