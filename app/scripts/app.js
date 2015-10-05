@@ -52,12 +52,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var item = childSnapshot.val();
       app.push('elements', item);
     });
-    var sendValue = function(id){
-      for (var i=0, iLen=app.elements.length; i<iLen; i++) {
-        if (app.elements[i].created_at == id) return document.querySelector('element-display').item = app.elements[i];
-      };
-      document.querySelector('element-summary').info = document.querySelector('element-display').item;
-    }
     sendValue(app.elements[0].created_at);
     console.log(app.elements);
   };
