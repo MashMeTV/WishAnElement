@@ -8,7 +8,7 @@
     overflow-y: auto;
   }
   #form {
-    padding: 15px 45px 30px 45px; 
+    padding: 15px 45px 30px 45px;
   }
   #newElementFormMain paper-input {
     margin-top: 15px;
@@ -22,10 +22,11 @@
   }
   #submitFormButton:not([disabled]) {
     background-color: #5f8fca;
-  } 
+  }
   #DescAndFileForm {
     margin: 35px 0px 0px 0px;
     display: flex;
+    flex-direction: horizontal;
     flex-direction: horizontal;
   }
   #DescAndFileForm paper-textarea {
@@ -39,7 +40,7 @@
     flex: 1;
     display: float;
     bottom: 0;
-  } 
+  }
   #SchemeUpload{
     display: none;
     float: right;
@@ -51,7 +52,6 @@
     bottom: 0;
     display: flex;
     right: 0;
-
   }
 </style>
 <template>
@@ -62,9 +62,9 @@
      <paper-input value="{{desc_short}}" label="Short description" maxlength=140 char-counter></paper-input>
      <div id="DescAndFileForm">
        <paper-textarea value="{{desc}}" label="Long (optional) description" rows="3" max-rows="3" maxlength=2000 char-counter></paper-textarea>
-      <div style="position: relative">
+       <div style="position: relative">
         <paper-button raised id="SchemeUploadButton" on-click="showInput">Scheme</paper-button>
-        <input id="SchemeUpload" type="file" value="{{screen}}" accept="image/*"></input>
+        <input id="SchemeUpload" type="file" value="{{photoPath}}" accept="image/*"></input>
         <div></div>
       </div>
      </div>
@@ -111,7 +111,7 @@
         desc:{
           type: String,
           value: ''
-        },  
+        },
         photo:{  // hated property :_)
           type: String,
           value: ''
@@ -125,7 +125,7 @@
         'enableButton(name, author, desc_short, photoPath)',
         'showThumbnail(photoPath)'
       ],
-      // en el enableButton faltaba como parametro photPath y aun así funcionaba 
+      // en el enableButton faltaba como parametro photPath y aun así funcionaba
       enableButton: function(name, author, desc_short, photoPath){
         if(/[a-zA-Z]+[-][a-zA-Z]+/.test(name) && /[\w]+/.test(author) && /\w/.test(desc_short) && this.photoPath != undefined){
           //console.log("set enable");
@@ -143,10 +143,9 @@
         if(this.photoPath.value != ''){
           var SchemeUploadButton = this.$.SchemeUploadButton;
           SchemeUploadButton.style.backgroundColor = "#5f8fca";
-          SchemeUploadButton.style.color = "white";   
+          SchemeUploadButton.style.color = "white";
         }
       },
-      
       listeners: {
         'SchemeUpload.change': '_photoChange',
         'submitFormButton.tap': '_tapHandler'
@@ -169,20 +168,20 @@
           "photo": this.photoPath,
           "created_at": this.created_at,
           "votes": this.votes
-       };
-       console.log(element);
-       //Saving to db
-       elementsRef.push(element);
-       //return element;
+        };
+        console.log(element);
+        //Saving to db
+        elementsRef.push(element);
+        //return element;
 
-       this.name = "";
-       this.author = "";
-       this.desc = "";
-       this.desc_short = "";
-       this.photoPath = "";
-       this.created_at = "";
-       this.votes = "";
-       // clean the iron-form
+        this.name = "";
+        this.author = "";
+        this.desc = "";
+        this.desc_short = "";
+        this.photoPath = "";
+        this.created_at = "";
+        this.votes = "";
+        // clean the iron-form
       }
     });
   })();
