@@ -8,7 +8,7 @@
     overflow-y: auto;
   }
   #elementSummaryMain > div {
-    padding: 15px 45px 30px 45px; 
+    padding: 15px 45px 30px 45px;
   }
   #elementSummaryMain h2 {
       text-align: center;
@@ -17,26 +17,29 @@
   paper-icon-button.blue {
     margin-top: 15px;
     color: #5f8fca;
-    display: inline-block;    
+    display: inline-block;
   }
   paper-icon-button {
     float: right;
   }
 </style>
 <template>
+  <!-- Learn how to show only one element
+       Show first element by # of votes
+       onClick on any element-display#infoCards show that element
+          !!!!! Tienen mil ids iguales \Ö/
+       Fixear el tema de los votos (need to login??)
+  -->
   <paper-material elevation="2" id="elementSummaryMain">
-    <template is="dom-repeat" items="[[elements]]">
-      <div>
-        <paper-icon-button icon="favorite" alt="heart" class="blue"></paper-icon-button>
-        <h2><span>[[item.name]]</span> summary</h2>
-        <p>Author name: <span>[[item.authorName]]</span></p>
-        <p>Short Description: <span>[[item.desc_short]]</span></p>
-        <p>Votes: <span>[[item.votes]]</span></p>
-        <!-- Optional -->
-        <p>Long description: <span>[[item.desc]]</span></p>
-        <img/> <!-- scheme goes here -->
-      </div>
-  </template>
+    <div>
+      <paper-icon-button icon="favorite" alt="heart" class="blue" id="voteUp"></paper-icon-button>
+      <h2><span>{{info.name}}</span></h2>
+      <p>Author name: <span>{{info.author}}</span></p>
+      <p>Short Description: <span>{{info.desc_short}}</span></p>
+      <p>Long description: <span>{{info.desc}}</span></p>
+      <p>Votes: <span>{{info.votes}}</span></p>
+      <img/>
+    </div>
   </paper-material>
 </template>
 <script type="text/javascript">
@@ -44,12 +47,18 @@
     Polymer({
       is: "element-summary",
       properties: {
-        elementName: {
-          type: String
-        },
-        authorInfo: {
-          type: Object
+        info: {
+          type: Object,
+          notify: true
         }
+      },
+      listeners: {
+        'voteUp.tap': '_voteUp'
+      },
+      _voteUp: function() {
+        // check if user already voted (?)
+        // add vote or not
+        // use transaction (firebase)
       }
     });
   })();
