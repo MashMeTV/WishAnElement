@@ -148,6 +148,8 @@
               };
               var values = [];
               for (var i=0; i<app.elements.length; i++){
+                /* Cuando los vuelve a meter de esta forma, no tinen como id
+                el create_at y no le pasa la info al summary */
                 values.push({
                   elementName: app.elements[i].name,
                   shortDesc: app.elements[i].desc_short
