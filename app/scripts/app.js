@@ -40,19 +40,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   //Connect to Firebase
   var firebaseRef = new Firebase('https://shining-torch-6028.firebaseio.com/wae/data');
-
   //Getting elements reference
   app.elementsRef = firebaseRef.child('elements');
 
   //Callback when elements is changed, app binded
   //app.elements updated via polymer .push('arrayName', value), makes the template render
   app.renderElements = function(snapshot){
-    console.log('renderElements')
+    console.log('renderElements');
     app.elements = [];
     snapshot.forEach(function(childSnapshot){
       var item = childSnapshot.val();
       app.push('elements', item);
     });
+    var sendValue = function(id){
+      for (var i=0, iLen=app.elements.length; i<iLen; i++) {
+        if (app.elements[i].created_at == id) return document.querySelector('element-display').item = app.elements[i];
+      };
+      document.querySelector('element-summary').info = document.querySelector('element-display').item;
+    }
+    sendValue(app.elements[0].created_at);
     console.log(app.elements);
   };
 
