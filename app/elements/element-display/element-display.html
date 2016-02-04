@@ -75,10 +75,10 @@
       </button>
     </div>
     <div class="list">
-    <template is="dom-repeat" items="[[elements]]">
+    <template id="displayTemplate" is="dom-repeat" items="[[elements]]">
       <div>
         <!-- equal timestamps?  -->
-        <paper-material elevation="1" id="[[item.created_at]]" class="infoCards" onclick="sendValue(this.id)">
+        <paper-material elevation="1" id="[[item.created_at]]" class="infoCards" on-click="sendValue">
           <div>
             <div class="displayBox" style="flex: 1">
               <div id="authorImg" style="backgroundImage:[[item.photoPath]]"></div>
@@ -95,21 +95,14 @@
   </div>
   </paper-material>
 </template>
-<script>
-  /* Pretty sure that i shouldnt be declearing this here */
-  var sendValue = function(id){
-    for (var i=0, iLen=app.elements.length; i<iLen; i++) {
-      if (app.elements[i].created_at == id) return document.querySelector('element-display').item = app.elements[i];
-    };
-  }
-</script>
 <script type="text/javascript">
   (function(){
     Polymer({
       is: "element-display",
       properties: {
-        item: {
-          type: Object
+        itemselected: {
+          type: Object,
+          notify: true
         }
       },
       listeners: {
@@ -118,6 +111,10 @@
       observers: [
         'updateSummary(item)'
       ],
+
+      ready: function(){
+        console.log(this.elements);
+      },
       updateSummary: function(){
         document.querySelector('element-summary').info = this.item;
       },
@@ -161,6 +158,14 @@
             }
           }, 120);
         }
+      },
+      sendValue: function(event){
+        console.log('sendValue');
+        app.set('itemselected', this.$.displayTemplate.itemForElement(event.target));
+
+        /*for (var i=0, iLen=app.elements.length; i<iLen; i++) {
+          if (app.elements[i].created_at == this.id) return document.querySelector('element-display').item = app.elements[i];
+        };*/
       }
     });
   })();

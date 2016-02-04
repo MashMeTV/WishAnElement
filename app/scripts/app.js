@@ -48,11 +48,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.renderElements = function(snapshot){
     console.log('renderElements');
     app.elements = [];
+    console.log(app);
     snapshot.forEach(function(childSnapshot){
       var item = childSnapshot.val();
       app.push('elements', item);
     });
-    sendValue(app.elements[0].created_at);
+    //sendValue(app.elements[0].created_at);
     console.log(app.elements);
   };
 

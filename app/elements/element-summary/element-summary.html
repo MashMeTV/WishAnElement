@@ -33,11 +33,11 @@
   <paper-material elevation="2" id="elementSummaryMain">
     <div>
       <paper-icon-button icon="favorite" alt="heart" class="blue" id="voteUp"></paper-icon-button>
-      <h2><span>{{info.name}}</span></h2>
-      <p>Author name: <span>{{info.author}}</span></p>
-      <p>Short Description: <span>{{info.desc_short}}</span></p>
-      <p>Long description: <span>{{info.desc}}</span></p>
-      <p>Votes: <span>{{info.votes}}</span></p>
+      <h2><span>{{itemselected.name}}</span></h2>
+      <p>Author name: <span>{{itemselected.author}}</span></p>
+      <p>Short Description: <span>{{itemselected.desc_short}}</span></p>
+      <p>Long description: <span>{{itemselected.desc}}</span></p>
+      <p>Votes: <span>{{itemselected.votes}}</span></p>
       <img/>
     </div>
   </paper-material>
@@ -47,13 +47,22 @@
     Polymer({
       is: "element-summary",
       properties: {
-        info: {
-          type: Object,
-          notify: true
+        itemselected: {
+          type: Object
         }
       },
+      observers: [
+        'itemSelectedChanged(itemselected)'
+      ],
       listeners: {
         'voteUp.tap': '_voteUp'
+      },
+      ready: function(){
+        console.log(this.itemselected);
+        //app.elements this.set(itemselected.3.item', asdfsa);  
+      },
+      itemSelectedChanged: function(itemselected){
+        console.log(itemselected);
       },
       _voteUp: function() {
         // check if user already voted (?)
